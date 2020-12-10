@@ -19,6 +19,7 @@ print(count)
 # Counter({'a': 2, 'b': 2, 'e': 2, 'c': 1, 'd': 1})
 print(count['b'])
 # 3
+# 出现次数最多的元素
 print(count.most_common(1))
 # [('b', 3)]
 print(count.items())
