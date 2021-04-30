@@ -25,7 +25,7 @@
 # 例子: 我想找出一个数值列表中为偶数的元素，并组成新列表，通常不用列表推导式，可以这么写
 
 # 常规写法
-old_list = [0,1,2,3,4,5]
+old_list = [0, 1, 2, 3, 4, 5]
 new_list = []
 for item in old_list:
     if item % 2 == 0:
@@ -34,7 +34,7 @@ print(new_list)
 # output: [0, 2, 4]
 
 # 列表推导式写法:
-old_list = [0,1,2,3,4,5]
+old_list = [0, 1, 2, 3, 4, 5]
 new_list = [item for item in old_list if item % 2 == 0]
 print(new_list)
 # output: [0, 2, 4]
@@ -86,7 +86,7 @@ print(new_set)
 # 生成器推导式：生成的是一个生成器
 # 直接上案例了，找出一个数值列表中所有的偶数
 
-old_list = [0,1,2,3,4,5]
+old_list = [0, 1, 2, 3, 4, 5]
 new_list = (item for item in old_list if item % 2 == 0)
 print(new_list)
 # output: <generator object <genexpr> at 0x10292df10>
@@ -103,8 +103,8 @@ next(new_list)
 
 # 常规写法
 for i in range(1, 10):
-    for j in range(1, i+1):
-        print('{}x{}={}\t'.format(j, i, i*j), end='')
+    for j in range(1, i + 1):
+        print('{}x{}={}\t'.format(j, i, i * j), end='')
     print("")
 # output:
 """
@@ -119,7 +119,8 @@ for i in range(1, 10):
     1x9=9    2x9=18  3x9=27  4x9=36  5x9=45  6x9=54  7x9=63  8x9=72  9x9=81
 """
 # 嵌套的列表推导式
-print('\n'.join([' '.join(['%2d *%2d = %2d' % (col, row, col * row) for col in range(1, row + 1)]) for row in range(1, 10)]))
+print('\n'.join(
+    [' '.join(['%2d *%2d = %2d' % (col, row, col * row) for col in range(1, row + 1)]) for row in range(1, 10)]))
 # output:
 """
      1 * 1 =  1
