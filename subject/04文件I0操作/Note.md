@@ -65,3 +65,53 @@ with File('filetest.txt', 'w') as f:
     print("writing")
     f.write('hello, world')
 ```
+
+# 什么是全缓冲、行缓冲和无缓冲？
+    全缓冲：python默认的缓冲区是4096字节，当缓冲区内的空间占满后，就将数据写入到磁盘中；
+    行缓冲：当写入的数据，每当遇到换行符，就将缓冲区中的数据写入到磁盘中；
+    无缓冲：字面意思，一写入数据，就将数据写入到磁盘中；
+    三种缓冲都可以通过buffering参数来设置
+```python
+# 全缓冲：python默认的缓冲区是4096字节，当缓冲区内的空间占满后，就将数据写入到磁盘中；
+f = open("filetest.txt", 'w', buffering=2048)
+#写入三个字节abc 打开txt文件依旧是空的
+f.write('abc')
+#写入2045个字节 打开txt文件依旧是空的
+f.write('*'*2045)
+# 此时我们在写入一个字节，就由缓冲存储到磁盘了，此时打开txt文件就可以看见数据了
+# 行缓冲： buffering=1
+f = open('001_测试缓冲案例文件.txt', 'w', buffering=1)
+f.write('abc')
+# 只要遇到换行符，就将缓存存到磁盘
+f.write('\n')
+
+# 无缓冲：buffering=0
+# 写入数据就直接存储到磁盘
+```
+
+# 什么是序列化和反序列化？JSON 序列化时常用的四个函数是什么？
+    序列化:我们程序中的变量和对象（比如文字、图片等内容），在传输的时候需要使用二进制数据，将这些变量或对象转换为二进制数据的过程，就是序列化。
+    反序列化:反序列化就是序列化的逆过程，把获取的二进制数据重建为变量或对象。实际序列化和反序列化就是二进制数据和原始数据格式之间的一个转换过程。
+
+    json常用的四个函数:
+        json.dump:将数据序列化到文件
+        json.load:将文件中的内容反序列化读取出来
+        json.dumps:将python格式的数据转换为json的字符串格式(序列化)
+        json.loads:将json的字符串格式转换为python支持的数据格式(反序列化)
+    注意：标准 JSON 格式数据要使用双引号。
+
+# JSON 中 dumps 转换数据时候如何保持中文编码？
+    可以通过 json.dumps 的 ensure_ascii 参数解决，代码示例如下：
+```python
+# file = open('papers.json', 'w', encoding='utf-8')
+# 将item字典类型的数据转换成json格式的字符串,
+# 注意json.dumps序列化时对中文默认使用的ascii编码，要想写入中文，加上ensure_ascii=False
+# line = json.dumps(dict(item), ensure_ascii=False) + "\n"
+# file.write(line)
+
+import json
+a=json.dumps({"python":"你好"},ensure_ascii=False)
+print(a)
+
+# {"python"："你好"}
+```
