@@ -58,6 +58,7 @@ print(f_dict, id(f_dict), type(f_dict)) # {'a': 'test1', 'b': 'test2', 'test5': 
      列表	   可变
      集合	   可变
      字典	   可变
+     可变数据类型即公用一个内存空间地址，不可变数据类型即每产生一个对象就会产生一个内存地址
 """
 ```
 
@@ -86,7 +87,7 @@ print(b.count('t')) # 3
 print(b.count('T')) # 2
 ```
 
-# 字符串，列表，元组如何反转；反转函数 reverse 和 reversed 的区别
+# 字符串，列表，元组如何反转；反转函数 `reverse` 和 `reversed` 的区别
 ```python
 # 列表反转 可迭代对象（实现__iter__即可）
 # reverse和reversed都是列表反转的一个方法，前者返回一个反转后的列表，后者返回反转的迭代器对象，只要是可迭代对象，都可以调用reversed()
@@ -165,9 +166,10 @@ print(sort_list_index(ls_one))  # [1, 2, 5, 3, 8, 10, 9]
 
 # for循环+新列表
 ls_new = list()
-for i in ls_one:
-    if i not in ls_new:
-        ls_new.append(i)
+# for i in ls_one:
+#     if i not in ls_new:
+#         ls_new.append(i)
+ls_one = [i for i in ls_one if i not in ls_new]
 print(sort_list_index(ls_one))  # [1, 2, 5, 3, 8, 10, 9]
 
 # keys()方法
@@ -183,9 +185,7 @@ import itertools
 ls_one.sort()
 ls_two = list()
 ls_it = itertools.groupby(ls_one)
-for k,_ in ls_it:
-    ls_two.append(k)
-print(ls_two) # # [1, 2, 3, 5, 8, 9, 10]
+print([k for k,_ in ls_it]) # # [1, 2, 3, 5, 8, 9, 10]
 ```
 
 # 列表数据如何筛选，筛选出符合要求的数据
@@ -208,53 +208,12 @@ data = [i for i in data if i > 0]
 print(data) # [10, 3, 4, 1, 9, 2]
 ```
 
-# 字典中元素的如何排序;sorted排序函数的使用详解
+# 字典中元素的如何排序
 ```python
-# sorted()排序函数 
-"""
-    sorted(__iterable, key, reverse)
-    第一个参数__iterable代表是一个可迭代对象
-    第二个参数keyda代表传入排序的规则，一般使用lambda表达式
-    第三个参数reverse，默认是False，可以传入 True 代表倒序排列
-"""
-a = [
-    {'username':'x', 'age':18},
-    {'username':'y', 'age':20},
-    {'username':'z', 'age':10},
-]
-# 按照年龄排序 reverse=True代表倒序排列
-print(sorted(a, key=lambda x:x['age'], reverse=True)) # [{'username': 'y', 'age': 20}, {'username': 'x', 'age': 18}, {'username': 'z', 'age': 10}]
-
-# 传入索引值，用于排序
-students = [('john', 'A', 15), ('jane', 'B', 12), ('dave','B', 10)]
-b = sorted(students,key=lambda x: x[2])
-print(b) # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
-
-# bool型排序
-print(sorted([True, False])) # [False, True]
-
-# 多规则复杂排序  lambda 表达式传入的规则可以传入一个元组包含多个规则，规则中进行判断，不满足的就是 False，排在最后
-s = "abC234568XYZdsf23"
-# 排序规则: 小写<大写<奇数<偶数
-print("".join(sorted(s, key=lambda x:(x.isdigit(), x.isupper(), x.isdigit() and int(x) % 2==0, x)))) # abdfsCXYZ33522468
-"""
-    原理：先比较元组的第一个值，FALSE<TRUE，如果相等就比较元组的下一个值，以此类推。
-    False排在后面
-    1.x.isdigit()的作用是把字母放在前边,数字放在后边.
-    2.x.isdigit() and int(x) % 2 == 0的作用是保证奇数在前，偶数在后。
-    3.x.isupper()的作用是在前面基础上,保证字母小写在前大写在后.
-    4.最后的x表示在前面基础上,对所有类别数字或字母排序。
-    同时满足上面的规则
-"""
-
-list1=[7, -8, 5, 4, 0, -2, -5]
-# 要求1.正数在前负数在后 2.整数从小到大 3.负数从大到小
-# 先按照正负排先后，再按照大小排先后
-print(sorted(list1, key=lambda x:(x<0, abs(x))))
-"""
-    x<0，表示负数在后面，正数在前面
-    abs(x)表示按绝对值，小的前面，大的在后面
-"""
+# sorted()排序 
+# 字典根据键从小到大排序
+info = {'name': 'Gage', 'age': 25, 'sex': 'man'}
+print(sorted(info.items(), key=lambda x:x[0])) # [('age', 25), ('name', 'Gage'), ('sex', 'man')]
 ```
 
 # 字典如何合并;字典解包是啥
@@ -294,7 +253,7 @@ cookie = {i.split("=")[0]:i.split("=")[1] for i in cookie.split(";")}
 print(cookie)  # {'show_id': '100126', 'username': 'Tom2222', 'email': '751825253@qq.com', 'role_code': 'admin', 'job': '666', 'department': 'test', 'parent_id': '1', 'app_ver': '1.2.0', 'status': 'true', 'mobile': '18372620761', 'phone': '86-13073670883', 'gender': '1', 'qq': '1', 'wechat': '1', 'remark': '111', 'add_time': '1596203920', 'upd_time': '1619862585'}
 ```
 
-# zip 打包函数的使用？元组或者列表中元素生成字典？
+# `zip` 打包函数的使用？元组或者列表中元素生成字典？
 ```python
 # zip打包函数的使用 zip()函数传入一个可迭代对象，然后元素一一对应组成一个元祖，然后将所有元祖打包成一个列表
 # zip 方法在 Python 2 和 Python 3 中的不同：在 Python 3 中为了减少内存，zip() 返回的是一个对象。如需展示列表，需手动 list() 转换。
@@ -373,29 +332,6 @@ del a['age'] # 删除字典a中key为age的元素
 print(a) # {'name': 'tom', 'sex': 'male', 'grade': 9527}
 ```
 
-# 如何对生成器类型的对象实现类似于列表切片的功能
-```python
-l = [1,2,3,4,5,6,7,8,9]
-# 对列表l进行切片
-print(l[1:3]) # [2, 3] 左闭右开
-
-# 其实主要是考察Python标准库的itertools模快，该模块提供了操作生成器的一些方法。 对于生成器类型我们使用islice方法来实现切片的功能
-from itertools import islice
-# 先使用item()函数来生成迭代器
-d = iter(range(1, 10))
-for i in islice(d,1,3): # islice()方法第一个参数是迭代器，第二个参数是起始位置索引，第三个参数是结束位置索引 注意：不支持负数索引
-    print(i)
-    # 2
-    # 3
-```
-
-# 将列表推导式[for i in range(10)]改成生成器
-````python
-# 把列表生产式的中括号，改为小括号我们就实现了生产器的功能
-print((for i in range(10))) # <generator object <genexpr> at 0x10d9e5890>
-print([i for i in range(10)]) # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-````
-
 # a="hello" 和 b="你好" 编码成 bytes 类型
 ```python
 a = "hello"
@@ -420,3 +356,91 @@ print(a) # (1, 2, 3, [2, 5, 6, 7], 8)
 # a[3] 对应的元素是列表，然后对列表第一个元素赋值，所以最后的结果是： (1,2,3,[2,5,6,7],8)
 ```
 
+# 如何生成一个 16 位的随机字符串
+
+```python
+import random
+import string
+print(''.join(random.choice(string.printable) for i in range(16))) # a0TN_)QA6PFVeiHK
+```
+
+# python 中生成随机整数、随机小数、0--1 之间小数方法
+```python
+import random
+# 随机整数
+print(random.randint(1,10)) # 7
+# 随机小数
+print(random.random()) # 0.021827474121851265
+# 0--1 之间小数方法
+print(random.uniform(0,1)) # 0.12594292005935803
+```
+
+# <div class="nam">Python</div>，用正则匹配出标签里面的内容（“Python”），其中 class 的类名是不确定的。
+```python
+import re
+s = '<div class="nam">Python</div>'
+print(re.findall(r'<div class=".*">(.*?)</div>', s)) # ['Python']
+```
+
+# `dict` 中 `fromkeys` 的用法
+```python
+key = ('info',)
+print(dict.fromkeys(key, ['a',1,'9527'])) # {'info': ['a', 1, '9527']}
+```
+
+# 正则表达式输出汉字
+```python
+import re
+s = '"not 404 found 中>国 2018 hwhdjs=-+? 我爱你"'
+r = '[a-zA-Z0-9’!"#$%&\'()*+,-./:;<=>?@，。?★、…【】《》？“”‘’！[\\]^_`{|}~]+\s?'
+print(re.sub(r, '', s)) # 中国 我爱你
+```
+
+# s = "ajldjlajfdljfddd"，去重并从小到大排序输出"adfjl"？
+```python
+s = "ajldjlajfdljfddd"
+print(set(s)) # {'j', 'f', 'l', 'd', 'a'}
+print(sorted(s)) # ['a', 'a', 'd', 'd', 'd', 'd', 'd', 'f', 'f', 'j', 'j', 'j', 'j', 'l', 'l', 'l']
+print(sorted(set(s))) # ['a', 'd', 'f', 'j', 'l']
+print(''.join(sorted(set(s))))
+```
+
+# Python 获取当前日期
+```python
+import time
+import datetime
+print(datetime.datetime.now()) # 2021-05-02 14:48:09.273591
+print(time.strftime("%Y-%m-%d %H:%M:%s")) # 2021-05-02 14:48:09
+```
+
+# 获取请求头的参数
+```python
+from urllib.parse import urlparse, parse_qs
+s = "/get_feed_list?version_name=5.0.9.0&device_id=12242&channel_name=google"
+def splitvalue(value):
+    url = {'site':urlparse(value).path}
+    url.update(parse_qs(urlparse(value).query))
+    return url
+
+print(splitvalue(s))  # {'site': '/get_feed_list', 'version_name': ['5.0.9.0'], 'device_id': ['12242'], 'channel_name': ['google']}
+```
+
+# `json` 序列化时，可以处理的数据类型有哪些？如何定制支持 `datetime` 类型？
+    可以处理的数据类型是 str、int、list、tuple、dict、bool、None, 因为 datetime 类不支持 json 序列化，所以我们对它进行拓展。
+```python
+# 自定义时间序列化
+# JSONEncoder 不知道怎么去把这个数据转换成 json 字符串的时候，它就会去调 default()函数,
+# 所以都是重写这个函数来处理它本身不支持的数据类型，default()函数默#认是直接抛异常的。
+import json
+import datetime
+class DateToJson(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime): 
+            return obj.strftime('%Y-%m-%d %H：%M：%S')
+        elif isinstance(obj, datetime.date): 
+            return obj.strftime('%Y-%m-%d')
+        else: 
+            return json.JSONEncoder.default(self, obj)
+d = {'name':'cxa', 'data':datetime.datetime.now()}
+print(json.dumps(d, cls=DateToJson)) # {"name": "cxa", "data": "2021-05-02 15\uff1a23\uff1a20"}
+```
