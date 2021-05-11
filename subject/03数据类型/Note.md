@@ -119,10 +119,11 @@ a = "ab;cd%e\tfg,,jklioha;hp,vrww\tyz"
 _a = re.split(r'[;%\t,]+', a)
 print(_a) # ['ab', 'cd', 'e', 'fg', 'jklioha', 'hp', 'vrww', 'yz']
 
+# 2 使用|表示或
 b = "info：tomato 33 test;666"
 _b = re.split(r'：|;| ', b)
 print(_b) # ['info', 'tomato', '33', 'test', '666']
-# 2 使用|表示或
+
 ```
 
 # 嵌套列表转换为列表，字符串转换为列表
@@ -378,8 +379,8 @@ print(random.uniform(0,1)) # 0.12594292005935803
 # <div class="nam">Python</div>，用正则匹配出标签里面的内容（“Python”），其中 class 的类名是不确定的。
 ```python
 import re
-s = '<div class="nam">Python</div>'
-print(re.findall(r'<div class=".*">(.*?)</div>', s)) # ['Python']
+s = '<div class="nam">中国</div>'
+print(re.findall(r'<div class=".*">(.*?)</div>', s)) # ['中国']
 ```
 
 # `dict` 中 `fromkeys` 的用法

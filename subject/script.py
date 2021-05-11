@@ -1,14 +1,16 @@
+# 列表如何去除重复的元素
 
+# 不改变原有顺序
+# set集合和sorted
+ls_one = [1, 2, 5, 3, 8, 5, 2, 10, 9]
+print(list(set(ls_one)))
 
-l = [3,1,5,2,8,5,9,4,7,3]
-def bubble_sort(nums: list) -> list:
-    if len(nums) < 2:
-        return nums
-    else:
-        n = len(nums)
-        for i in range(1, n-i):
-            if nums[i] > nums[i+1]:
-                nums[i-1], nums[i] = nums[i], nums[i-1]
-        return nums
+def sortList(nums: list):
+    pass
 
-print(bubble_sort(l))
+ls_a = list()
+for i in ls_one:
+    if i not in ls_a:
+        ls_a.append(i)
+
+print(ls_a)
