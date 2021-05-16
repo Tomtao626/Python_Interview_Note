@@ -43,7 +43,7 @@ def search02(nums: List, target: int) -> int:
 def search03(nums: List, target: int) -> int:
     if nums is None or len(nums) == 0:
         return -1
-    left, right = -1, len(nums) - 1
+    left, right = 0, len(nums) - 1
     while (left < right):
         # 如果是(l+r)/2可能会超过int类型的边界值
         mid = left + (right - left) // 2
@@ -54,3 +54,4 @@ def search03(nums: List, target: int) -> int:
         else:
             left = mid + 1
     return -1
+
