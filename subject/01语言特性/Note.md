@@ -111,10 +111,10 @@ class newclass(metaclass=MetaClass):
     
 ## 异常
 ```python
-py2:
+# py2:
 except Exception, var：
     pass
-py3:
+# py3:
 except Exception as var:
     pass
 ```

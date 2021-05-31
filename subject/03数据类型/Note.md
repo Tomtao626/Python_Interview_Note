@@ -163,7 +163,7 @@ ls_one = [1, 2, 5, 3, 8, 5, 2, 10, 9]
 def sort_list_index(ls_one: list) -> list:
     ls_one_new = sorted(set(ls_one), key=ls_one.index)
     return ls_one_new
-print(sort_list_index(ls_one))  # [1, 2, 5, 3, 8, 10, 9]
+print(sort_list_index(ls_one)) # [1, 2, 5, 3, 8, 10, 9]
 
 # for循环+新列表
 ls_new = list()
