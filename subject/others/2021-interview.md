@@ -686,19 +686,19 @@ from time import time
 
 def record_time(output):
     """可以参数化的装饰器"""
-	
-	def decorate(func):
-		
-		@wraps(func)
-		def wrapper(*args, **kwargs):
-			start = time()
-			result = func(*args, **kwargs)
-			output(func.__name__, time() - start)
-			return result
+    
+    def decorate(func):
+        
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            start = time()
+            result = func(*args, **kwargs)
+            output(func.__name__, time() - start)
+            return result
             
-		return wrapper
-	
-	return decorate
+        return wrapper
+    
+    return decorate
 ```
 
 #### 题目26：什么是鸭子类型（duck typing）？
